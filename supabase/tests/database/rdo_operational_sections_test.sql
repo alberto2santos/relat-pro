@@ -72,7 +72,7 @@ select lives_ok(
   'Responsável pode registrar ocorrência no próprio RDO'
 );
 select is(
-  (select count(*) from public.auditorias_rdo where rdo_id = 'cccccccc-cccc-4ccc-8ccc-ccccccccccc1' and acao in ('efetivo_adicionado', 'equipamento_adicionado', 'ocorrencia_adicionada')),
+  (select count(*) from public.auditorias_rdo where rdo_id = 'cccccccc-cccc-4ccc-8ccc-ccccccccccc1' and acao in ('efetivo_adicionado', 'equipamento_adicionado', 'ocorrencia_adicionado', 'ocorrencia_adicionada')),
   3::bigint,
   'Alterações operacionais geram histórico de auditoria'
 );

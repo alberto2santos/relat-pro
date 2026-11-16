@@ -95,6 +95,7 @@ select is_empty(
 select throws_ok(
   $$update public.rdos set status = 'approved' where id = '77777777-7777-4777-8777-777777777771'$$,
   '42501',
+  null,
   'Encarregado não altera status diretamente pela tabela'
 );
 select results_eq(
@@ -165,16 +166,19 @@ select is_empty(
 select throws_ok(
   $$insert into public.materiais_rdo (rdo_id, material, quantidade) values ('77777777-7777-4777-8777-777777777774', 'Material bloqueado', 1)$$,
   '42501',
+  null,
   'Encarregado não inclui material em RDO alheio'
 );
 select throws_ok(
   $$insert into public.evidencias_rdo (rdo_id, tipo, url) values ('77777777-7777-4777-8777-777777777774', 'foto', 'rls-test/bloqueada.png')$$,
   '42501',
+  null,
   'Encarregado não inclui evidência em RDO alheio'
 );
 select throws_ok(
   $$delete from public.auditorias_rdo where rdo_id = '77777777-7777-4777-8777-777777777771'$$,
   '42501',
+  null,
   'Histórico não pode ser apagado pela API'
 );
 select is(
@@ -217,16 +221,19 @@ select is(
 select throws_ok(
   $$insert into public.unidades (codigo, nome) values ('RLS-NAO-ADMIN', 'Unidade bloqueada')$$,
   '42501',
+  null,
   'Somente administrador pode cadastrar unidade'
 );
 select throws_ok(
   $$insert into public.export_history (scheduled_export_id, user_id, format, status) values ('88888888-8888-4888-8888-888888888881', '11111111-1111-4111-8111-111111111111', 'csv', 'pending')$$,
   '42501',
+  null,
   'Histórico de exportação só pode ser gravado pelo serviço de backend'
 );
 select throws_ok(
   $$insert into public.auditorias_rdo (rdo_id, auditor_user_id, acao) values ('77777777-7777-4777-8777-777777777771', '11111111-1111-4111-8111-111111111111', 'manual')$$,
   '42501',
+  null,
   'Histórico de RDO só pode ser gravado pelas rotinas do banco'
 );
 
@@ -304,8 +311,9 @@ select is_empty(
   'Responsável não altera o RDO depois da aprovação'
 );
 select throws_ok(
-  $$insert into public.rdos (id, user_id, unidade_id, numero, data, disciplina, status, hh_planejado) values ('77777777-7777-4777-8777-777777777776', '11111111-1111-4111-8111-111111111111', '66666666-6666-4666-8666-666666666666', 'RLS-DUP', '2026-10-01', 'civil', 'draft', 8)$$,
+  $$insert into public.rdos (user_id, unidade_id, numero, data, disciplina, status, hh_planejado) values ('11111111-1111-4111-8111-111111111111', '66666666-6666-4666-8666-666666666666', 'RLS-DUP', '2026-10-01', 'civil', 'draft', 8)$$,
   '23505',
+  null,
   'Banco rejeita RDO ativo duplicado para unidade, data e disciplina'
 );
 
@@ -331,6 +339,7 @@ select is_empty(
 select throws_ok(
   $$delete from public.rdos where id = '77777777-7777-4777-8777-777777777773'$$,
   '42501',
+  null,
   'API não apaga RDO fisicamente e preserva o histórico'
 );
 select is(
