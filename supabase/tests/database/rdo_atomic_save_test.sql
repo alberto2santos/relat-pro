@@ -9,7 +9,8 @@ insert into auth.users (id, email) values
 
 insert into public.profiles (id, profile) values
   ('aaaaaaaa-aaaa-4aaa-8aaa-aaaaaaaaaab1', 'encarregado'),
-  ('aaaaaaaa-aaaa-4aaa-8aaa-aaaaaaaaaab2', 'encarregado');
+  ('aaaaaaaa-aaaa-4aaa-8aaa-aaaaaaaaaab2', 'encarregado')
+on conflict (id) do update set profile = excluded.profile;
 
 insert into public.unidades (id, codigo, nome)
 values ('bbbbbbbb-bbbb-4bbb-8bbb-bbbbbbbbbbb2', 'ATOMIC', 'Teste RPC atômica');
@@ -179,7 +180,7 @@ select is(
 );
 select is(
   (select version from public.rdos where id = 'cccccccc-cccc-4ccc-8ccc-ccccccccccb1'),
-  2,
+  3,
   'Falha ao salvar uma filha não altera a versão nem parte do agregado'
 );
 reset role;

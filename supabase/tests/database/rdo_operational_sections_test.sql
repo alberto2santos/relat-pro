@@ -12,7 +12,8 @@ insert into auth.users (id, email) values
 insert into public.profiles (id, profile) values
   ('aaaaaaaa-aaaa-4aaa-8aaa-aaaaaaaaaaa1', 'encarregado'),
   ('aaaaaaaa-aaaa-4aaa-8aaa-aaaaaaaaaaa2', 'encarregado'),
-  ('aaaaaaaa-aaaa-4aaa-8aaa-aaaaaaaaaaa3', 'admin');
+  ('aaaaaaaa-aaaa-4aaa-8aaa-aaaaaaaaaaa3', 'admin')
+on conflict (id) do update set profile = excluded.profile;
 
 insert into public.unidades (id, codigo, nome)
 values ('bbbbbbbb-bbbb-4bbb-8bbb-bbbbbbbbbbb1', 'OPS-RLS', 'Teste seções operacionais');
@@ -70,13 +71,6 @@ select lives_ok(
   $$insert into public.rdo_ocorrencias (rdo_id, tipo, descricao, horas_impacto) values ('cccccccc-cccc-4ccc-8ccc-ccccccccccc1', 'chuva', 'Chuva forte', 2)$$,
   'Responsável pode registrar ocorrência no próprio RDO'
 );
-select diag(coalesce(
-  (select string_agg(acao, ', ' order by acao)
-   from public.auditorias_rdo
-   where rdo_id = 'cccccccc-cccc-4ccc-8ccc-ccccccccccc1'
-     and acao like '%_adicionado'),
-  'nenhum evento de auditoria'
-));
 select is(
   (select count(*) from public.auditorias_rdo where rdo_id = 'cccccccc-cccc-4ccc-8ccc-ccccccccccc1' and acao in ('efetivo_adicionado', 'equipamento_adicionado', 'ocorrencia_adicionada')),
   3::bigint,

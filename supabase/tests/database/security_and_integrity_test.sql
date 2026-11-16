@@ -17,7 +17,8 @@ insert into public.profiles (id, profile) values
   ('22222222-2222-4222-8222-222222222222', 'encarregado'),
   ('33333333-3333-4333-8333-333333333333', 'supervisor'),
   ('44444444-4444-4444-8444-444444444444', 'engenheiro'),
-  ('55555555-5555-4555-8555-555555555555', 'admin');
+  ('55555555-5555-4555-8555-555555555555', 'admin')
+on conflict (id) do update set profile = excluded.profile;
 
 insert into public.unidades (id, codigo, nome, disciplina)
 values ('66666666-6666-4666-8666-666666666666', 'RLS-TESTE', 'Unidade de teste RLS', 'civil');
@@ -303,7 +304,7 @@ select is_empty(
   'Responsável não altera o RDO depois da aprovação'
 );
 select throws_ok(
-  $$insert into public.rdos (id, user_id, unidade_id, numero, data, disciplina, status) values ('77777777-7777-4777-8777-777777777776', '11111111-1111-4111-8111-111111111111', '66666666-6666-4666-8666-666666666666', 'RLS-DUP', '2026-10-01', 'civil', 'draft')$$,
+  $$insert into public.rdos (id, user_id, unidade_id, numero, data, disciplina, status, hh_planejado) values ('77777777-7777-4777-8777-777777777776', '11111111-1111-4111-8111-111111111111', '66666666-6666-4666-8666-666666666666', 'RLS-DUP', '2026-10-01', 'civil', 'draft', 8)$$,
   '23505',
   'Banco rejeita RDO ativo duplicado para unidade, data e disciplina'
 );
