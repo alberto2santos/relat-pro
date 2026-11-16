@@ -7,6 +7,10 @@ insert into auth.users (id, email) values
   ('aaaaaaaa-aaaa-4aaa-8aaa-aaaaaaaaaab1', 'rdo-atomic-owner@example.test'),
   ('aaaaaaaa-aaaa-4aaa-8aaa-aaaaaaaaaab2', 'rdo-atomic-other@example.test');
 
+insert into public.profiles (id, profile) values
+  ('aaaaaaaa-aaaa-4aaa-8aaa-aaaaaaaaaab1', 'encarregado'),
+  ('aaaaaaaa-aaaa-4aaa-8aaa-aaaaaaaaaab2', 'encarregado');
+
 insert into public.unidades (id, codigo, nome)
 values ('bbbbbbbb-bbbb-4bbb-8bbb-bbbbbbbbbbb2', 'ATOMIC', 'Teste RPC atômica');
 

@@ -70,6 +70,13 @@ select lives_ok(
   $$insert into public.rdo_ocorrencias (rdo_id, tipo, descricao, horas_impacto) values ('cccccccc-cccc-4ccc-8ccc-ccccccccccc1', 'chuva', 'Chuva forte', 2)$$,
   'Responsável pode registrar ocorrência no próprio RDO'
 );
+select diag(coalesce(
+  (select string_agg(acao, ', ' order by acao)
+   from public.auditorias_rdo
+   where rdo_id = 'cccccccc-cccc-4ccc-8ccc-ccccccccccc1'
+     and acao like '%_adicionado'),
+  'nenhum evento de auditoria'
+));
 select is(
   (select count(*) from public.auditorias_rdo where rdo_id = 'cccccccc-cccc-4ccc-8ccc-ccccccccccc1' and acao in ('efetivo_adicionado', 'equipamento_adicionado', 'ocorrencia_adicionada')),
   3::bigint,
