@@ -13,7 +13,7 @@ values ('bbbbbbbb-bbbb-4bbb-8bbb-bbbbbbbbbbb2', 'ATOMIC', 'Teste RPC atômica');
 insert into public.funcoes (id, nome)
 values ('dddddddd-dddd-4ddd-8ddd-ddddddddddb1', 'Função teste RPC');
 insert into public.equipamentos (id, nome)
-values ('eeeeeeee-eeee-4eee-8eee-eeeeeeeeeeeb1', 'Equipamento teste RPC');
+values ('eeeeeeee-eeee-4eee-8eee-eeeeeeeeeee1', 'Equipamento teste RPC');
 
 set local role authenticated;
 set local request.jwt.claim.sub = 'aaaaaaaa-aaaa-4aaa-8aaa-aaaaaaaaaab1';
@@ -44,7 +44,7 @@ select is(
       )),
       'equipment', jsonb_build_array(jsonb_build_object(
         'id', '33333333-3333-4333-8333-3333333333b1',
-        'equipamento_id', 'eeeeeeee-eeee-4eee-8eee-eeeeeeeeeeeb1',
+        'equipamento_id', 'eeeeeeee-eeee-4eee-8eee-eeeeeeeeeee1',
         'horas_uso', 4
       )),
       'occurrences', jsonb_build_array(jsonb_build_object(
@@ -98,7 +98,7 @@ select is(
       )),
       'equipment', jsonb_build_array(jsonb_build_object(
         'id', '33333333-3333-4333-8333-3333333333b1',
-        'equipamento_id', 'eeeeeeee-eeee-4eee-8eee-eeeeeeeeeeeb1',
+        'equipamento_id', 'eeeeeeee-eeee-4eee-8eee-eeeeeeeeeee1',
         'horas_uso', 4
       )),
       'occurrences', jsonb_build_array(jsonb_build_object(

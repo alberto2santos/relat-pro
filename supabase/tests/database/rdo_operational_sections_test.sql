@@ -9,9 +9,10 @@ insert into auth.users (id, email) values
   ('aaaaaaaa-aaaa-4aaa-8aaa-aaaaaaaaaaa2', 'rdo-ops-other@example.test'),
   ('aaaaaaaa-aaaa-4aaa-8aaa-aaaaaaaaaaa3', 'rdo-ops-admin@example.test');
 
-update public.profiles
-set profile = 'admin'
-where id = 'aaaaaaaa-aaaa-4aaa-8aaa-aaaaaaaaaaa3';
+insert into public.profiles (id, profile) values
+  ('aaaaaaaa-aaaa-4aaa-8aaa-aaaaaaaaaaa1', 'encarregado'),
+  ('aaaaaaaa-aaaa-4aaa-8aaa-aaaaaaaaaaa2', 'encarregado'),
+  ('aaaaaaaa-aaaa-4aaa-8aaa-aaaaaaaaaaa3', 'admin');
 
 insert into public.unidades (id, codigo, nome)
 values ('bbbbbbbb-bbbb-4bbb-8bbb-bbbbbbbbbbb1', 'OPS-RLS', 'Teste seções operacionais');
@@ -42,16 +43,19 @@ select is((select count(*) from public.tipos_ocorrencia), 6::bigint, 'Usuário a
 select throws_ok(
   $$insert into public.funcoes (nome) values ('Função bloqueada')$$,
   '42501',
+  null,
   'Apenas administrador pode gerir funções'
 );
 select throws_ok(
   $$insert into public.equipamentos (nome) values ('Equipamento bloqueado')$$,
   '42501',
+  null,
   'Apenas administrador pode gerir equipamentos'
 );
 select throws_ok(
   $$insert into public.tipos_ocorrencia (codigo, nome, ordem) values ('outro', 'Tipo indevido', 99)$$,
   '42501',
+  null,
   'O catálogo de ocorrências não pode ser alterado pela aplicação'
 );
 select lives_ok(
@@ -74,6 +78,7 @@ select is(
 select throws_ok(
   $$insert into public.rdo_efetivo (rdo_id, funcao_id, quantidade, horas_trabalhadas) values ('cccccccc-cccc-4ccc-8ccc-ccccccccccc3', 'dddddddd-dddd-4ddd-8ddd-ddddddddddd1', 1, 8)$$,
   '42501',
+  null,
   'Não é possível adicionar efetivo diretamente em RDO aprovado'
 );
 
