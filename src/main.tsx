@@ -15,6 +15,6 @@ if (!container) {
 createRoot(container).render(
   <React.StrictMode>
     <App />
-    {import.meta.env.PROD && <Analytics />}
+    <Analytics />
   </React.StrictMode>
 );
