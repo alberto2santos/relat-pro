@@ -1,0 +1,14 @@
+﻿node_modules/
+dist/
+dev-dist/
+.vite/
+.vercel/
+coverage/
+playwright-report/
+test-results/
+supabase/.temp/
+.env
+.env.*
+!.env.example
+.DS_Store
+Thumbs.db

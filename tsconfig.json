@@ -1,0 +1,60 @@
+{
+  "compilerOptions": {
+    // Diretório de saída para arquivos compilados (não utilizado, pois noEmit é true).
+    "types": ["node", "vite/client"],
+    // Alvo de compilação: ES2020 para suporte a features modernas do JavaScript.
+    "target": "ES2020",
+
+    // Sistema de módulos: ESNext para compatibilidade com Vite e bundlers modernos.
+    "module": "ESNext",
+
+    // Bibliotecas incluídas: ES2020 para JS moderno e DOM para APIs do navegador.
+    "lib": ["ES2020", "DOM", "DOM.Iterable"],
+
+    // Resolução de módulos otimizada para bundlers como Vite.
+    "moduleResolution": "bundler",
+
+    // Alias de caminhos: permite imports como @/components em vez de ./src/components.
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["./src/*"]
+    },
+
+    // Configuração JSX para React 19 (suporte a JSX Transform).
+    "jsx": "react-jsx",
+
+    // Modo estrito ativado para maior segurança de tipos.
+    "strict": true,
+
+    // Verificações adicionais para código limpo.
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "noFallthroughCasesInSwitch": true,
+
+    // Otimizações para Vite: pula checagem de libs e permite módulos isolados.
+    "skipLibCheck": true,
+    "isolatedModules": true,
+
+    // Suporte a imports de extensões TS e JSON (essencial para Vite + ESM).
+    "allowImportingTsExtensions": true,
+    "resolveJsonModule": true,
+
+    // Não emite arquivos JS (Vite cuida da compilação).
+    "noEmit": true,
+
+    // Outras otimizações recomendadas para projetos Vite + React.
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
+    "forceConsistentCasingInFileNames": true,
+    "useDefineForClassFields": true
+  },
+
+  // Arquivos e pastas a serem incluídos na compilação.
+  "include": ["src/**/*"],
+
+  // Pastas a serem excluídas (node_modules não é processado pelo TS).
+  "exclude": ["node_modules", "dist"],
+
+  // Referência ao tsconfig para configuração do Vite (tsconfig.node.json).
+  "references": [{ "path": "./tsconfig.node.json" }]
+}
